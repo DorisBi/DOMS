@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^order/new/$', my_order.new, name='new'),
     url(r'^order/edit/(?P<order_id>\d+)/$', my_order.edit, name='edit'),
     url(r'^order/delete/(?P<order_id>\d+)/$', my_order.destroy, name='delete'),
-    url(r'^users/login/$', auth.login, {'template_name': 'login.html'}, name='login'),
-    url(r'^users/logout/$', auth.logout, {'next_page': '/'}, name='logout'),
-    url(r'^users/change_password/$', login_required(auth.password_change), {'post_change_redirect' : '/','template_name': 'change_password.html'}, name='change_password'),
+    url(r'^users/login/$', auth.LoginView.as_view(template_name='login.html'), name='login'),
+    url(r'^users/logout/$', auth.LogoutView.as_view(next_page='/'), name='logout'),
+    url(r'^users/change_password/$', login_required(auth.PasswordChangeView.as_view(template_name='change_password.html', success_url='/')), name='change_password'),
 ]
